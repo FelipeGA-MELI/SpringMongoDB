@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public void deleteUser(@RequestBody UserDTO userDTO) {
-        userService.deleteUser(userDTO);
+    public void deleteUser(@RequestBody String userLogin) {
+        userService.deleteUser(userLogin);
     }
 }

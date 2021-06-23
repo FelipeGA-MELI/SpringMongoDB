@@ -21,7 +21,7 @@ public class UserService {
     }
 
     public UserDTO createUser(UserDTO userDTO) {
-        adressRepostiroy.insert(userDTO.getAddresses());
+        adressRepostiroy.saveAll(userDTO.getAddresses());
         return userRepository.insert(userDTO);
     }
 
@@ -37,8 +37,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void deleteUser(UserDTO userDTO) {
-        UserDTO user = userRepository.findByLogin(userDTO.getLogin());
+    public void deleteUser(String userLogin) {
+        UserDTO user = userRepository.findByLogin(userLogin);
 
         adressRepostiroy.deleteAll(user.getAddresses());
         userRepository.delete(user);
