@@ -1,5 +1,6 @@
 package com.example.mongo_demo.service;
 
+import com.example.mongo_demo.dto.AddressDTO;
 import com.example.mongo_demo.dto.UserDTO;
 import com.example.mongo_demo.repository.AdressRepostiroy;
 import com.example.mongo_demo.repository.UserRepository;
@@ -20,11 +21,26 @@ public class UserService {
     }
 
     public UserDTO createUser(UserDTO userDTO) {
-        adressRepostiroy.saveAll(userDTO.getAddresses());
-        return userRepository.save(userDTO);
+        adressRepostiroy.insert(userDTO.getAddresses());
+        return userRepository.insert(userDTO);
+    }
+
+    public UserDTO updateUser(UserDTO userDTO) {
+       UserDTO user = userRepository.findByLogin(userDTO.getLogin());
+
+        user.setPassword(userDTO.getPassword());
+
+        return userRepository.save(user);
     }
 
     public List<UserDTO> findAllUsers() {
         return userRepository.findAll();
+    }
+
+    public void deleteUser(UserDTO userDTO) {
+        UserDTO user = userRepository.findByLogin(userDTO.getLogin());
+
+        adressRepostiroy.deleteAll(user.getAddresses());
+        userRepository.delete(user);
     }
 }
