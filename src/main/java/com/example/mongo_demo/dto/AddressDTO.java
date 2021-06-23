@@ -11,7 +11,6 @@ public class AddressDTO {
     @Id
     private String id;
 
-    @Indexed
     private String street;
 
     private String zipcode;
